@@ -1,0 +1,298 @@
+$background-card-color: rgba(135, 156, 133, 0.9);
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    //background-image: linear-gradient(to right bottom, #293045, #3b5462, #5d797a, #8a9c93, #bcc0b4);
+    background-image: linear-gradient(to bottom, #2d3039, #313c42, #3b4748, #49524d, #5a5c55);
+    background-size: inherit;
+    background-repeat: no-repeat;
+}
+
+//img {
+//  width: 200px;
+//  height: auto;
+//}
+.particles-js-canvas-el {
+    position: fixed;
+    display: block;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.game_field {
+    width: 60vw;
+    height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .game_title {
+        color: white;
+        font-family: 'Comfortaa', cursive;
+        font-size: 45px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .choose_level {
+        color: white;
+        font-family: 'Comfortaa', cursive;
+        font-size: 25px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .nav_panel {
+        //width: ;
+        //height: 5%;
+        width: auto;
+        height: auto;
+        font-size: 20px;
+        display: flex;
+        justify-content: space-around;
+        margin: 20px auto;
+        //box-shadow: 1px 4px 20px 0px black;
+
+        .nav_button {
+            //width: calc(33.33% - 5px);
+            //display: inline-block;
+            width: 150px;
+            //height: 100%;
+            height: 50px;
+            margin-right: 8px;
+            display: flex;
+            border-radius: 50px;
+            background-color: rgba(159, 180, 157, 0.47);
+            justify-content: center;
+            align-items: center;
+            box-shadow: 3px 4px 13px 4px #343539;
+
+            &:hover {
+                cursor: pointer;
+                filter: brightness(110%);
+                transform: scale(1.02);
+            }
+
+            &:active {
+                transform: scale(0.98);
+            }
+        }
+
+    }
+
+    .board {
+        width: 450px;
+        height: 550px;
+        padding: 5px;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        perspective: 1000px;
+
+    }
+
+    .board-medium {
+        width: 550px;
+        height: 600px;
+        padding: 5px;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        perspective: 1000px;
+    }
+
+    .board-hard {
+        width: 850px;
+        height: 600px;
+        padding: 5px;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        perspective: 1000px;
+    }
+
+    .card {
+        background: $background-card-color;
+        width: calc(25% - 10px);
+        height: calc(33.333% - 10px);
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        box-shadow: 1px 4px 20px 0 black;
+
+        transform-style: preserve-3d;
+        transition: transform 0.5s;
+
+        //border: 1px solid white;
+        &:hover {
+            transform: scale(1.05);
+            background: lighten($background-card-color, 20%);
+        }
+        &:active {
+            transform: scale(0.95);
+            transition: transform .2s;
+        }
+
+        .front_face, .back_face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            backface-visibility: hidden;
+
+        }
+
+        .front_face {
+            transform: rotateY(180deg);
+        }
+
+        .back_face {
+            animation: pulse 0.8s 0s infinite linear alternate;
+        }
+
+        .back_face_container {
+            width: 100%;
+            height: 100%;
+            animation: spin 8s 0s infinite linear;
+        }
+
+        @keyframes pulse {
+            from {
+            }
+            to {
+                transform: scale(1.1)
+            }
+        }
+
+        @keyframes spin {
+            from {
+            }
+            to {
+                transform: rotate(360deg)
+            }
+        }
+    }
+
+    // 5x4
+    .card-medium {
+        width: calc(20% - 10px);
+        height: calc(25% - 10px);
+    }
+
+    // 8x4
+    .card-hard {
+        width: calc(12.5% - 10px);
+        height: calc(25% - 10px);
+    }
+
+    .card.flip {
+        transform: rotateY(180deg);
+        transition: transform 0.3s;
+    }
+}
+
+.return-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-image: url("../images/others/return btn.png");
+    background-size: cover;
+    opacity: 0.5;
+    &:hover {
+        opacity: 0.8;
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+
+}
+
+.score-board {
+    display: flex;
+    justify-content: center;
+    p{
+        display: inline-block;
+        color: white;
+        margin-right: 20px;
+        font-size: 1.5em;
+
+    }
+}
+
+.game-over{
+    position:absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    width: 100vw;
+    height:100vh;
+    background: rgba(159,180,157,0.32);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .game-over-field{
+        width: 500px;
+        height: 500px;
+        border: 1px solid grey;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        .game-over-btns{
+            display: flex;
+        }
+
+        .menu-back-btn{
+            width:80px;
+            height: 30px;
+            border-radius: 10px;
+            color: white;
+            font-size: 20px;
+            text-align: center;
+            margin-top: 30px;
+            margin-right: 10px;
+            //padding: 10px;
+
+
+            background: rgba(203,224,200,0.27);
+            &:hover{
+                cursor: pointer;
+                transform: scale(1.05);
+            }
+        }
+    }
+}
+
+.signature {
+    font-family: 'Tangerine', cursive;
+    font-size: 25px;
+    transform: rotate(-30deg);
+    color: white;
+    position: absolute;
+    bottom: 50px;
+    right: 100px
+}
+
+#app {
+    display: flex;
+    justify-content: center;
+}
+
